@@ -1,11 +1,14 @@
 
-
-const io = require('socket.io')(8001, {
+const port=process.env.PORT || 8001;
+const http=require('http');
+http.createServer().listen(port);
+const io = require('socket.io')(http, {
     cors: {
       origin: '*',
     }
   });
 const users={};
+
 io.on('connection',socket => {
     socket.on('new-user-joined',name => {
        console.log(name);
